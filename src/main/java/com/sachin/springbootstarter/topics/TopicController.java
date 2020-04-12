@@ -11,6 +11,7 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/api")
 public class TopicController {
 
     @Autowired
@@ -30,16 +31,21 @@ public class TopicController {
         return service.getTopic(id);
     }
 
-    @RequestMapping(method=RequestMethod.POST, value="/topics" )
+    @PostMapping("/topics")
     public void addTopic(@RequestBody Topic topic) {
-
         System.out.println("New topic is being added :: " + topic.getId());
         service.addTopic(topic);
     }
 
-    @RequestMapping(method=RequestMethod.DELETE, value="/topics/{id}")
+    @DeleteMapping("/topics/{id}")
     public void deleteTopic(@PathVariable String id){
         System.out.println("Deleting one topic :: " + id);
         service.deleteTopic(id);
+    }
+
+    @PutMapping("/topics/{id}")
+    public void updateTopic(@RequestBody Topic topic, @PathVariable String id) {
+        System.out.println("New topic is being updated :: " + topic.getId());
+        service.updateTopic(topic);
     }
 }
