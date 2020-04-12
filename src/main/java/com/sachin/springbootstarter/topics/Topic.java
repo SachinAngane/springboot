@@ -1,12 +1,18 @@
 package com.sachin.springbootstarter.topics;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by Sachin on 05-04-2020.
  */
+
+@Entity
 public class Topic {
 
-    private String name;
+    @Id
     private String id;
+    private String name;
     private String description;
 
     public Topic(){}

@@ -1,5 +1,6 @@
 package com.sachin.springbootstarter.topics;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import java.util.List;
 @Service
 public class TopicService {
 
+    @Autowired
+    private TopicRepository topicRepository;
+
     private List<Topic> topics = new ArrayList<Topic>
     (Arrays.asList(
             new Topic("spring", "spring framework", "spring framework description"),
@@ -20,7 +24,10 @@ public class TopicService {
             new Topic("javascript", "javascript framework", "javascript framework description")));
 
     public List<Topic> getAllTopics(){
-        return this.topics;
+
+        List<Topic> topics = new ArrayList<>();
+        topicRepository.findAll().forEach(topics::add);
+        return topics;
     }
 
     public Topic getTopic(String id) {
@@ -36,7 +43,7 @@ public class TopicService {
     public void addTopic(Topic topic) {
 
         System.out.println("topic added :: " + topic.getId());
-        topics.add(topic);
+        topicRepository.save(topic);
     }
 
     public void deleteTopic(String id) {
